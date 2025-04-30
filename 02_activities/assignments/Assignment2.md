@@ -54,7 +54,37 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
 ```
-Your answer...
+In a Type 1 design, the customer address table is structured to overwrite any previous data. When a customer moves to a new address, their existing record is simply updated, and the old address is lost.
+
+Use Case:
+Best for when only the most current address is needed.
+Simpler and uses less storage.
+Suitable for operational systems where address history is not required.
+
+Example Table Structure:
+customer_id
+customer_name
+address_line
+city
+state
+postal_code
+
+
+In a Type 2 design, every time a customer’s address changes, a new record is inserted, preserving the previous address and creating a full history of changes. Additional columns are typically used to track when the record was valid or whether it is the current address.
+
+Use Case:
+Preferred when historical accuracy is important.
+Useful for analytics like “Where did the customer live at the time of an order?”
+Slightly more complex due to versioning or time tracking.
+
+Example Table Structure:
+customer_id
+customer_name
+address_line
+city
+start_date
+end_date
+is_current
 ```
 
 ***
